@@ -24,3 +24,12 @@ bertipe `UserCreatedEventMessage` ke message broker RabbitMQ melalui queue
 bernama `user_created`. Subscriber yang sedang berjalan dan terhubung ke queue
 yang sama secara otomatis menerima 5 event tersebut dan memprosesnya satu per
 satu, menampilkan isi pesan di konsol.
+
+## Monitoring Chart Based on Publisher
+
+![RabbitMQ Chart](screenshot_chart.png)
+
+Setiap kali publisher dijalankan, 5 pesan langsung dikirim sekaligus ke RabbitMQ.
+Spike pada grafik terjadi karena ada lonjakan tiba-tiba pada message rate tepat
+saat publisher dieksekusi. Semakin sering publisher dijalankan, semakin banyak
+spike yang terlihat pada grafik message rate di RabbitMQ dashboard.
