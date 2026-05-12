@@ -33,3 +33,38 @@ Setiap kali publisher dijalankan, 5 pesan langsung dikirim sekaligus ke RabbitMQ
 Spike pada grafik terjadi karena ada lonjakan tiba-tiba pada message rate tepat
 saat publisher dieksekusi. Semakin sering publisher dijalankan, semakin banyak
 spike yang terlihat pada grafik message rate di RabbitMQ dashboard.
+
+# Bonus: Running on Cloud (CloudAMQP)
+
+Sebagai bonus, eksperimen ini dijalankan ulang menggunakan **CloudAMQP** 
+sebagai message broker berbasis cloud, bukan RabbitMQ lokal di local machine.
+
+### Apa itu CloudAMQP?
+CloudAMQP adalah layanan RabbitMQ yang di-host di cloud. Dengan menggunakan 
+CloudAMQP, publisher dan subscriber tidak lagi bergantung pada RabbitMQ yang 
+berjalan di local machine, melainkan terhubung ke broker yang dapat diakses 
+dari mana saja melalui internet.
+
+### Perubahan yang Dilakukan
+URL koneksi AMQP diubah dari localhost ke URL CloudAMQP:
+// Sebelum (lokal):
+amqp://guest:guest@localhost:5672
+// Sesudah (cloud):
+amqp://username:password@broker.cloudamqp.com/username
+
+### Hasil
+Publisher berhasil mengirimkan 5 event ke CloudAMQP dan subscriber 
+yang terhubung ke broker yang sama berhasil menerima semua event tersebut,
+membuktikan bahwa event-driven architecture bekerja lintas mesin melalui 
+cloud message broker.
+
+#### RabbitMQ Dashboard
+![alt text](image-1.png)
+#### Sending and Processing Event
+![alt text](image-3.png)
+![alt text](image-4.png)
+### Monitoring Chart Based on Publisher
+![alt text](image-5.png)
+
+
+
